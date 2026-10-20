@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from "react";
 import { users } from "./users.js";
 
 const allowedRoles = ["admin", "user"];
@@ -99,3 +100,39 @@ export function setUserActive(id, isActive) {
   user.isActive = isActive;
   return user;
 }
+
+export function searchUser(searchTerm) {
+  const userFind = users.find(user => user.name.toLowerCase() === searchTerm.toLowerCase());
+}
+
+export function getActiveUser() {
+  const ActiveUsers = users.filter(user => user.isActive === true);
+}
+
+export function getAdmin() {
+  const AdminUsers = users.filter(user => user.role === "admin");
+}
+
+export function getUserByRole(role) {
+  const UserByRole = users.filter(user => user.role === role);
+}
+
+export function getUserOlderThan(age) {
+  const OlderUser = users.filter(user => user.age > age);
+}
+
+export function getUserByName(name) {
+  const UserBuName = users.find(user => user.name === name);
+}
+
+export function hasInactiveUsers() {
+  const Inactive = users.filter(user => !user.isActive);
+  if (Inactive.length > 0) {
+    return "Find a Inactive User.";
+  }
+}
+
+export function hasUserNamed(name) {
+  const hasNamed = users.some(user => user.name);
+}
+
