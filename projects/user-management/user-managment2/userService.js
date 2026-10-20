@@ -31,3 +31,71 @@ export function createUser(name, age, role) {
     return { ...newUser };
 }
 
+export function updateUser(id, updates) {
+  const user = users.find(user => user.id === id);
+
+  if (!user) {
+    return null;
+  }
+
+  const allowedFields = ["name", "age", "role", "isActive"];
+  const entries = Object.entries(updates);
+
+  for (const [key, value] of entries) {
+    if (!allowedFields.includes(key)) {
+      throw new Error(`Invalid field: ${key}`);
+    }
+
+    if (key === "name" &&
+        (typeof value !== "string" || value.trim() === "")) {
+      throw new Error("Name is invalid.");
+    }
+
+    if (key === "age" &&
+        (!Number.isInteger(value) || value <= 0)) {
+      throw new Error("Age is invalid.");
+    }
+
+    if (key === "role" &&
+        !["admin", "user"].includes(value)) {
+      throw new Error("Role is invalid.");
+    }
+
+    if (key === "isActive" && typeof value !== "boolean") {
+      throw new Error("isActive must be a boolean.");
+    }
+  }
+
+  Object.assign(user, {
+    ...updates,
+    name: updates.name?.trim() ?? user.name
+  });
+
+  return user;
+}
+
+export function deleteUser(id) {
+  const index = users.findIndex(user => user.id === id);
+
+  if (index === -1) {
+    return false;
+  }
+
+  users.splice(index, 1);
+  return true;
+}
+
+export function setUserActive(id, isActive) {
+  if (typeof isActive !== "boolean") {
+    throw new Error("isActive must be true or false.");
+  }
+
+  const user = users.find(user => user.id === id);
+
+  if (!user) {
+    return null;
+  }
+
+  user.isActive = isActive;
+  return user;
+}
