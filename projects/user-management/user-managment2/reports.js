@@ -12,7 +12,7 @@ export function SortUserBtoA() {
 }
 
 export function UserNameActive() {
-    const userTarget = users.filter(user => user.isActive = true);
+    const userTarget = users.filter(user => user.isActive === true);
     return userTarget;
 }
 
@@ -22,22 +22,21 @@ export function CountUsers() {
 
 export function AverageAgeOfUsers() {
     const userTarget = users.reduce((total, { age }) => total + age, 0);
-    return userTarget;
+    const CountUser = users.length;
+    const Average = userTarget / CountUser;
+    return Average;
 }
 
 export function CountActiveUserAndNotActiveUser() {
     const ActiveUser = users.filter(user => user.isActive === true);
-    return `Count Of Active User = ${ActiveUser.length}`;
 
     const NotActiveUser = users.filter(user => user.isActive === false);
-    return `Count Of NotActive User = ${NotActiveUser.length}`;
+    return `Count Of NotActive User = ${NotActiveUser.length} And Count Of Active User = ${ActiveUser.length}`;
 }
 
 export function OldestAndYoungest() {
     const ages = users.map(({ age }) => age);
     const Maxage = Math.max(...ages);
     const Minage = Math.min(...ages);
-    return `Maximum of the age = ${Maxage}`;
-    return `Minimum of the age = ${Minage}`;
+    return `Maximum of the age = ${Maxage} And Minimum of the age = ${Minage}`;
 }
-
