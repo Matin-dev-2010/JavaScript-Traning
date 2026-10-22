@@ -103,6 +103,7 @@ export function setUserActive(id, isActive) {
 
 export function searchUser(searchTerm) {
   const userFind = users.find(user => user.name.toLowerCase() === searchTerm.toLowerCase());
+  return userFind;
 }
 
 export function getActiveUser() {
